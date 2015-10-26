@@ -61,7 +61,7 @@ def getResults(job_title):
 def getJobs(job_name):
 	print "in get jobs"
 	print job_name
-	results = db['jobposts_rawdata_job'].find({"keyword_fetched":job_name})
+	results = db['jobposts_rawdata_job'].find({"keyword_fetched":job_name}).limit(100)
 	count=db['jobposts_rawdata_job'].find({"keyword_fetched":job_name}).count()
 	print count
 	new_results = []
@@ -76,6 +76,8 @@ def getJobs(job_name):
 		check ["LOCATION : "] = result["job_location"]
 		check ["JOB-DESCRIPTION : "] = result["job_description"]
 		check["POSTED-DATE : "]=result["published_date"]
+		check["URL : "]=result["job_url"]
+		check["SOURCE : "]=result["source"]
 
 		#print check
 		#print "BEFORE*****************"
@@ -105,7 +107,7 @@ def getJobs(job_name):
 		
 	#result_format['search']['response']['data']['jobs'] = new_results
 	result_format['search']['response']['data']['jobs'] = out
-	result_format['search']['count']=count
+	result_format['search']['count']=100
 	#print result_format
 	return result_format
 	#return out

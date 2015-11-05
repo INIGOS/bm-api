@@ -28,17 +28,28 @@ def getResults(job_title):
 
 
 		json_results = []
+		out=[]
 		
-		results = db['jobposts_rawdata_job'].distinct("keyword_fetched")
-		
+		#results = db['jobposts_rawdata_job'].distinct("keyword_fetched")
+		results = db['jobposts_rawdata_job'].find({})
+
 		for result in results:
-			print result
-			result = result.replace("+"," ")
-			json_results.append(result)
-			
+			check=collections.OrderedDict()
+			check["JOB-ID:"] = result["job_id"]
+			check["JOB-TITLE:"] = result["keyword_fetched"]
+			#print check
+			if check not in out:
+				out.append(check)
+				print out
+			else:
+				json_results.append(check)
+			#print result
+			#result = result.replace("+"," ")
+			#json_results.append(result)
+			#out.append(check)
 			
 		
-		result_format['search']['response']['data']['jobs'] = json_results
+		result_format['search']['response']['data']['jobs'] = out
 		print result_format
 		
 		return result_format
@@ -77,7 +88,7 @@ def geturl(url_name):
 
 	for result in results:
 		check=collections.OrderedDict()
-		check["VIDEO-TITLE"]=result["video_title"]
+		#check["VIDEO-TITLE"]=result["video_title"]
 		check["URL:"] = result["video_url"]
 		
 		out.append(check)
@@ -104,6 +115,7 @@ def getKeywords(keyss):
 	print "starts here"
 	l=[]
 	out=[]
+	out1=[]
 	l.append(keyss)
 	results=db['temp_skills_extracted'].find({"job_id":int(keyss)})
 	print keyss
@@ -111,7 +123,10 @@ def getKeywords(keyss):
 	for result in results:
 		print "Inside "
 		check=collections.OrderedDict()
-		check["KEYWORDS"]=result["skills"]
+		check1=collections.OrderedDict()
+		check["SKILLS"]=result["skills"]
+		check1['JOB']=result["job"]
+		out1.append(check1)
 		out.append(check)
 	result_format = {
 				"search":{
@@ -126,7 +141,8 @@ def getKeywords(keyss):
 				}
 				}
 			}
-	result_format['search']['response']['data']['jobs'] = out
+	result_format['search']['response']['data'] = out1[0]
+	result_format['search']['response']['data']['SKILL SET'] = out
 	return result_format
 def getJobs(job_name):
 	print "in get jobs"

@@ -102,12 +102,14 @@ def geturl(url_name):
 
 def getKeywords(keyss):
 	print "starts here"
-	print keyss
 	l=[]
 	out=[]
 	l.append(keyss)
-	results=db['temp_skills_extracted'].find({"job":l[0]})
+	results=db['temp_skills_extracted'].find({"job_id":int(keyss)})
+	print keyss
+	print results
 	for result in results:
+		print "Inside "
 		check=collections.OrderedDict()
 		check["KEYWORDS"]=result["skills"]
 		out.append(check)
@@ -244,5 +246,3 @@ def namesss():
 
 if __name__ == '__main__':
     app.run(debug=True,host='0.0.0.0')
-
-

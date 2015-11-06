@@ -124,7 +124,7 @@ def getKeywords(keyss):
 		print "Inside "
 		check=collections.OrderedDict()
 		check1=collections.OrderedDict()
-		check["SKILLS"]=result["skills"]
+		check[" "]=result["skills"]
 		check1['JOB']=result["job"]
 		out1.append(check1)
 		out.append(check)
@@ -252,7 +252,7 @@ def names():
     #return ress
     return flask.jsonify(**ress)
 #/v1/keywords/search/video?q=xyz&source=youtube.com
-@app.route('/v1/keywords/search/video', methods=['GET'])
+@app.route('/v1/keywords/search/learningcontent', methods=['GET'])
 def namess():
     namess = request.args.get("q")
     print namess    

@@ -128,6 +128,7 @@ def getKeywords(keyss):
 		check1['JOB']=result["job"]
 		out1.append(check1)
 		out.append(check)
+		comp="hi"
 	result_format = {
 				"search":{
 				"timed_out":"false",
@@ -141,9 +142,23 @@ def getKeywords(keyss):
 				}
 				}
 			}
-	result_format['search']['response']['data'] = out1[0]
-	result_format['search']['response']['data']['SKILL SET'] = out
-	return result_format
+	error_format= {
+				"search":{
+				"timed_out":"false",
+				"response":{
+								"found":"0"
+								
+				}
+				}
+			}
+	
+	if not out1:
+		return error_format
+	else:
+		result_format['search']['response']['data'] = out1[0]
+		result_format['search']['response']['data']['SKILL SET'] = out
+		return result_format
+
 def getJobs(job_name):
 	print "in get jobs"
 	print job_name

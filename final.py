@@ -35,8 +35,8 @@ def getResults(job_title):
 
 		for result in results:
 			check=collections.OrderedDict()
-			check["JOB-ID:"] = result["job_id"]
-			check["JOB-TITLE:"] = result["keyword_fetched"]
+			check["JOB-ID"] = result["job_id"]
+			check["JOB-TITLE"] = result["keyword_fetched"]
 			#print check
 			if check not in out:
 				out.append(check)
@@ -124,7 +124,7 @@ def getKeywords(keyss):
 		print "Inside "
 		check=collections.OrderedDict()
 		check1=collections.OrderedDict()
-		check[" "]=result["skills"]
+		check["SKILL SET "]=result["skills"]
 		check1['JOB']=result["job"]
 		out1.append(check1)
 		out.append(check)
@@ -155,8 +155,8 @@ def getKeywords(keyss):
 	if not out1:
 		return error_format
 	else:
-		result_format['search']['response']['data'] = out1[0]
-		result_format['search']['response']['data']['SKILL SET'] = out
+		result_format['search']['response'] = out1[0]
+		result_format['search']['response']['data'] = out
 		return result_format
 
 def getJobs(job_name):

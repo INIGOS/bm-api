@@ -159,6 +159,81 @@ def getKeywords(keyss):
 		result_format['search']['response']['data'] = out
 		return result_format
 
+def getvideos(learning_object):
+	out=[]
+	results=db['extracted_videos'].find({"learning_object":learning_object})
+	print results
+	for result in results:
+		print "poda"
+		check=collections.OrderedDict()
+		check["VIDEOS"]=result["videos"]
+		out.append(check)
+		print "check"
+		print out
+	result_format = {
+				"search":{
+				"timed_out":"false",
+				"response":{
+								"status":"ok",
+
+								"data":{								
+											
+								}
+								
+				}
+				}
+			}
+	error_format= {
+				"search":{
+				"timed_out":"false",
+				"response":{
+								"found":"0"
+								
+				}
+				}
+			}
+	if not out:
+		return error_format
+	else:
+		result_format['search']['response']['data'] = out
+		return result_format
+
+def getsyllabus(skills):
+	out=[]
+	results=db['extracted_syllabus'].find({"skill":skills})
+	for result in results:
+		check=collections.OrderedDict()
+		check["SYLLABUS"]=result["syllabus"]
+		out.append(check)
+	result_format = {
+				"search":{
+				"timed_out":"false",
+				"response":{
+								"status":"ok",
+
+								"data":{								
+											
+								}
+								
+				}
+				}
+			}
+	error_format= {
+				"search":{
+				"timed_out":"false",
+				"response":{
+								"found":"0"
+								
+				}
+				}
+			}
+	if not out:
+		return error_format
+	else:
+		result_format['search']['response']['data'] = out
+		return result_format
+
+
 def getJobs(job_name):
 	print "in get jobs"
 	print job_name
@@ -261,6 +336,27 @@ def namess():
     
     #return ress
     return flask.jsonify(**resss)
+
+
+@app.route('/v1/keywords/search/videos', methods=['GET'])
+def video():
+    video = request.args.get("q")
+    print video    
+    resssss = getvideos(video)
+    #print "RRESSSSSSSSSSSSSSSSSSSSSSS"
+    
+    #return ress
+    return flask.jsonify(**resssss)
+    
+@app.route('/v1/keywords/search/syllabus', methods=['GET'])
+def syllabus():
+    syllabus = request.args.get("q")
+    print syllabus    
+    ressssss = getsyllabus(syllabus)
+    #print "RRESSSSSSSSSSSSSSSSSSSSSSS"
+    
+    #return ress
+    return flask.jsonify(**ressssss)    
 #/v1/keywords/search/skillset?q=Digital Marketing
 @app.route('/v1/keywords/search/skillset', methods=['GET'])
 def namesss():

@@ -8,6 +8,7 @@ from pymongo import MongoClient
 app = Flask(__name__)
 connection = MongoClient('188.40.79.87', 27017)
 db = connection['brightminds']
+db1 = connection['bmprod']
 def toJson(data):
     return json.dumps(data, default=json_util.default,sort_keys=True,
                   indent=4, separators=(',', ': '))
@@ -307,6 +308,41 @@ def getJobs(job_name):
 	result_format['search']['count']=count
 	return result_format
 
+def getSkillsetIds(skill_id):
+	out=[]
+	results=db1['extracted_syllabus_local'].find({"skill_id":skill_id})
+	for result in results:
+		check=collections.OrderedDict()
+		check["SYLLABUS"]=result["syllabus"]
+		out.append(check)
+	result_format = {
+				"search":{
+				"timed_out":"false",
+				"response":{
+								"status":"ok",
+
+								"data":{								
+											
+								}
+								
+				}
+				}
+			}
+	error_format= {
+				"search":{
+				"timed_out":"false",
+				"response":{
+								"found":"0"
+								
+				}
+				}
+			}
+	if not out:
+		return error_format
+	else:
+		result_format['search']['response']['data'] = out
+		return result_format
+
 #/v1/keywords/search/job_listing?q=job_title
 @app.route('/v1/keywords/search/job_listing', methods=['GET'])
 def name():
@@ -367,6 +403,17 @@ def namesss():
     
     #return ress
     return flask.jsonify(**ressss)
+
+#/v1/keywords/search/LoTopics?q=SK6_28
+@app.route('/v1/keywords/search/LoTopics', methods=['GET'])
+def LoTopics():
+    LoTopics = request.args.get("q")
+    print LoTopics    
+    resssssss = getSkillsetIds(LoTopics)
+    #print "RRESSSSSSSSSSSSSSSSSSSSSSS"  
+    
+    #return ress
+    return flask.jsonify(**resssssss)
     
     
 

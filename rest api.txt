@@ -1,0 +1,24 @@
+http://188.40.79.87:5000/v1/keywords/search/job_listing?q=job_title
+o/p:job-id & job-title
+
+http://188.40.79.87:5000/v1/keywords/search/job_position?q=Business Analyst
+
+http://188.40.79.87:5000/v1/keywords/search/job_position?q=Business Analyst&offset=1
+
+http://188.40.79.87:5000/v1/keywords/search/job_position?q=Project Manager&company=NTT Data
+
+http://188.40.79.87:5000/v1/keywords/search/job_position?q=Project Manager&company=NTT Data
+
+i/p:keyword fetched  o/p:company,job-description,job-title,location,date,source,url
+
+http://188.40.79.87:5000/v1/keywords/search/learningcontent?q=xyz&source=Vimeo.com
+i/p:source  o/p:vimeo video urls
+
+http://188.40.79.87:5000/v1/keywords/search/skillset?q=1001
+i/p:job id  o/p:id,skill
+
+http://188.40.79.87:5000/v1/keywords/search/syllabus?q=microsoft office suite
+i/p:skill  o/p:syllabus
+
+http://188.40.79.87:5000/v1/keywords/search/videos?q=Lec
+i/p:learning object  o/p:video urls

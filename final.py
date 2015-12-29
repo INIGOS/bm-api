@@ -122,7 +122,7 @@ def getKeywords(keyss):
 	out1=[]
 	l.append(keyss)
 	#results=db['temp_skills_extracted'].find({"job_id":int(keyss)})
-	results=db1['extracted_videos_local'].find({"learning_object":learning_object})
+	results=db1['extracted_skills_local'].find({"job_id":int(keyss)})
 	print keyss
 	print results
 	for result in results:

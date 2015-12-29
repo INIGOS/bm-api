@@ -38,7 +38,7 @@ def getResults(job_title):
 		for result in results:
 			check=collections.OrderedDict()
 			check["JOB-ID"] = result["job_id"]
-			check["JOB-TITLE"] = result["keyword_fetched"]
+			check["JOB-TITLE"] = result["keyword"]
 			#print check
 			if check not in out:
 				out.append(check)
@@ -319,7 +319,7 @@ def getJobs(job_name):
 def getSkillsetIds(skill_id):
 	out=[]
 	results=db1['extracted_syllabus_local'].find({"skill_id":skill_id})
-	
+
 	for result in results:
 		check=collections.OrderedDict()
 		check["SYLLABUS"]=result["syllabus"]

@@ -251,7 +251,7 @@ def getJobs(job_name):
 	src=str(request.args.get('source',0))
 	loc=str(request.args.get('location',0))
 	comp=str(request.args.get('company',0))
-	temp=[{"keyword_fetched":i[0]}]
+	temp=[{"keyword":i[0]}]
 	temp.extend(j1)
 	print temp
 

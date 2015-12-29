@@ -276,7 +276,7 @@ def getJobs(job_name):
 	#results = db['jobposts_rawdata_job'].find({"$and":temp}).limit(10).skip(off)
 	results = db1['jobposts_rawdata'].find({"$and":temp}).limit(10).skip(off)
 	#count=db['jobposts_rawdata_job'].find({"keyword_fetched":job_name}).count()
-	count=db1['jobposts_rawdata'].find({"keyword_fetched":job_name}).count()
+	count=db1['jobposts_rawdata'].find({"keyword":job_name}).count()
 	print count
 	new_results = []
 	

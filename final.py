@@ -207,7 +207,7 @@ def getvideos(learning_object):
 def getsyllabus(skills):
 	out=[]
 	#results=db['extracted_syllabus'].find({"skill":skills})
-	results=db1['extracted_syllabus_local'].find({"skill":skills})
+	results=db1['extracted_syllabus_new'].find({"skill":skills})
 	for result in results:
 		check=collections.OrderedDict()
 		check["SYLLABUS"]=result["syllabus"]
@@ -318,7 +318,7 @@ def getJobs(job_name):
 
 def getSkillsetIds(skill_id):
 	out=[]
-	results=db1['extracted_syllabus_local'].find({"skill_id":skill_id})
+	results=db1['extracted_syllabus_new'].find({"skill_id":skill_id})
 
 	for result in results:
 		check=collections.OrderedDict()

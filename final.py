@@ -164,10 +164,10 @@ def getKeywords(keyss):
 		result_format['search']['response']['data'] = out
 		return result_format
 
-def getvideos(learning_object):
+def getvideos(id):
 	out=[]
 	#results=db['extracted_videos'].find({"learning_object":learning_object})
-	results=db1['extracted_videos_local'].find({"learning_object":learning_object})
+	results=db1['extracted_videos_new'].find({"id":id})
 	print results
 	for result in results:
 		print "poda"

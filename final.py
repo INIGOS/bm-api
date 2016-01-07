@@ -70,6 +70,84 @@ def getResults(job_title):
 
 
 		return error_format
+
+def getskills(loids):
+	out=[]
+	results=db1['extracted_videos_new'].find({"id":loids})
+	for result in results:
+		check=collections.OrderedDict()
+		check["LEARNING OBJECT "]=result["learning_object"]
+		check["SKILL "]=result["skill"]
+		check["JOB "]=result["job"]
+		out.append(check)
+		print out
+	result_format = {
+				"search":{
+				"timed_out":"false",
+				"response":{
+								"status":"ok",
+
+								"data":{								
+											
+								}
+								
+				}
+				}
+			}
+	error_format= {
+				"search":{
+				"timed_out":"false",
+				"response":{
+								"found":"0"
+								
+				}
+				}
+			}
+	
+	if not out:
+		return error_format
+	else:
+		result_format['search']['response']['data'] = out
+		return result_format
+
+def getsyllabcount(skillid):
+	out=[]
+	results=db1['extracted_syllabus_new'].find({"skill_id":skillid})
+	for result in results:
+		check={}
+		check["syllabus "]=result["syllabus"]
+		out.append(check)
+		#print check
+		ans=len(check['syllabus '])
+	result_format = {
+				"search":{
+				"timed_out":"false",
+				"response":{
+								"status":"ok",
+
+								"data":{								
+											
+								}
+								
+				}
+				}
+			}
+	error_format= {
+				"search":{
+				"timed_out":"false",
+				"response":{
+								"found":"0"
+								
+				}
+				}
+			}	
+	if not out:
+		return error_format
+	else:
+		result_format['search']['response']['count'] = ans
+		return result_format
+
+
 def geturl(url_name):
 	print "url"
 	temp=[]
@@ -423,7 +501,28 @@ def LoTopics():
     
     #return ress
     return flask.jsonify(**resssssss)
+
+#/v1/keywords/search/skills?q=LO4_SK1_25
+@app.route('/v1/keywords/search/skills', methods=['GET'])
+def skill():
+    skill = request.args.get("q")
+    #print LoTopics    
+    ressssssss = getskills(skill)
+    #print "RRESSSSSSSSSSSSSSSSSSSSSSS"  
     
+    #return ress
+    return flask.jsonify(**ressssssss)  
+
+
+@app.route('/v1/keywords/search/getsyllabcount', methods=['GET'])
+def syl():
+    syl = request.args.get("q")
+    #print LoTopics    
+    resssssssss =getsyllabcount(syl)
+    #print "RRESSSSSSSSSSSSSSSSSSSSSSS"  
+    
+    #return ress
+    return flask.jsonify(**resssssssss) 
     
 
 

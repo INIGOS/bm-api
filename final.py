@@ -35,10 +35,13 @@ def getResults(job_title):
 		#results = db['jobposts_rawdata_job'].find({})
 		results = db1['jobposts_rawdata'].find({})
 
+
 		for result in results:
 			check=collections.OrderedDict()
 			check["JOB-ID"] = result["job_id"]
 			check["JOB-TITLE"] = result["keyword"]
+			lo_count=db1['extracted_videos_new'].find({"job_id":result["job_id"]}).count()
+			check["LO-COUNT"]=lo_count
 			#print check
 			if check not in out:
 				out.append(check)
@@ -73,12 +76,20 @@ def getResults(job_title):
 
 def getskills(loids):
 	out=[]
-	results=db1['extracted_videos_new'].find({"id":loids})
+	results=db1['extracted_videos_Jan8'].find({"learning_object_id":loids})
+	print "gud"
 	for result in results:
 		check=collections.OrderedDict()
 		check["LEARNING OBJECT "]=result["learning_object"]
 		check["SKILL "]=result["skill"]
-		check["JOB "]=result["job"]
+		check["JOB"]=result["job"]
+		print "half done"
+		check["JOB-ID"]=result["job_id"]
+		print "error 1"
+		check["LO-ID"]=result["learning_object_id"]
+		print "error 2"
+		check["SKILL-ID"]=result["skill_id"]
+		print "error 3"
 		out.append(check)
 		print out
 	result_format = {
@@ -208,6 +219,8 @@ def getKeywords(keyss):
 		check=collections.OrderedDict()
 		check1=collections.OrderedDict()
 		check["SKILL SET "]=result["skills"]
+		lo_count=db1['extracted_videos_new'].find({"job_id":int(keyss)}).count()
+		check["LO-COUNT"]=lo_count
 		check1['JOB']=result["job"]
 		out1.append(check1)
 		out.append(check)

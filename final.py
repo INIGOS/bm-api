@@ -76,7 +76,7 @@ def getResults(job_title):
 
 def getskills(loids):
 	out=[]
-	results=db1['extracted_videos_Jan8'].find({"learning_object_id":loids})
+	results=db1['extracted_videos_new'].find({"learning_object_id":loids})
 	print "gud"
 	for result in results:
 		check=collections.OrderedDict()

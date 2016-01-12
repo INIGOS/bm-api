@@ -220,7 +220,7 @@ def getKeywords(keyss):
 		check1=collections.OrderedDict()
 		check["SKILL SET "]=result["skills"]
 		lo_count=db1['extracted_videos_new'].find({"job_id":int(keyss)}).count()
-		check["LO-COUNT"]=lo_count
+		#check["LO-COUNT"]=lo_count
 		check1['JOB']=result["job"]
 		list_of_skills=result["skills"]
 		skills_with_count=[]

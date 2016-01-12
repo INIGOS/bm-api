@@ -30,9 +30,7 @@ def getResults(job_title):
 
 		json_results = []
 		out=[]
-		
-		#results = db['jobposts_rawdata_job'].distinct("keyword_fetched")
-		#results = db['jobposts_rawdata_job'].find({})
+
 		results = db1['jobposts_rawdata'].find({})
 
 
@@ -48,15 +46,8 @@ def getResults(job_title):
 				print out
 			else:
 				json_results.append(check)
-			#print result
-			#result = result.replace("+"," ")
-			#json_results.append(result)
-			#out.append(check)
-			
-		
+
 		result_format['search']['response']['data']['jobs'] = out
-		print result_format
-		
 		return result_format
 		
 	else:
@@ -83,15 +74,10 @@ def getskills(loids):
 		check["LEARNING OBJECT "]=result["learning_object"]
 		check["SKILL "]=result["skill"]
 		check["JOB"]=result["job"]
-		print "half done"
 		check["JOB-ID"]=result["job_id"]
-		print "error 1"
 		check["LO-ID"]=result["learning_object_id"]
-		print "error 2"
 		check["SKILL-ID"]=result["skill_id"]
-		print "error 3"
 		out.append(check)
-		print out
 	result_format = {
 				"search":{
 				"timed_out":"false",
@@ -128,7 +114,6 @@ def getsyllabcount(skillid):
 		check={}
 		check["syllabus "]=result["syllabus"]
 		out.append(check)
-		#print check
 		ans=len(check['syllabus '])
 	result_format = {
 				"search":{
@@ -169,19 +154,16 @@ def geturl(url_name):
 		print loc
 		temp.append(loc)
 		print temp[0]
-		#results=db['videoposts_rawdata'].find({'source':temp[0]})
 		results=db1['videoposts_rawdata_local'].find({'source':temp[0]})
 		count=results.count()
 		print count
 	else:
-		#results=db['videoposts_rawdata'].find({})
 		results=db1['videoposts_rawdata_local'].find({})
 	count=results.count()
 	print count
 
 	for result in results:
 		check=collections.OrderedDict()
-		#check["VIDEO-TITLE"]=result["video_title"]
 		check["URL:"] = result["video_url"]
 		
 		out.append(check)
@@ -210,7 +192,6 @@ def getKeywords(keyss):
 	out=[]
 	out1=[]
 	l.append(keyss)
-	#results=db['temp_skills_extracted'].find({"job_id":int(keyss)})
 	results=db1['extracted_skills_local'].find({"job_id":int(keyss)})
 	print keyss
 	print results
@@ -257,8 +238,7 @@ def getKeywords(keyss):
 
 def getvideos(id):
 	out=[]
-	#results=db['extracted_videos'].find({"learning_object":learning_object})
-	results=db1['extracted_videos_new'].find({"learning_object_id":id})
+	results=db1['extracted_videos_new'].find({"id":id})
 	print results
 	for result in results:
 		print "poda"
@@ -297,7 +277,6 @@ def getvideos(id):
 
 def getsyllabus(skills):
 	out=[]
-	#results=db['extracted_syllabus'].find({"skill":skills})
 	results=db1['extracted_syllabus_new'].find({"skill":skills})
 	for result in results:
 		check=collections.OrderedDict()
@@ -362,11 +341,7 @@ def getJobs(job_name):
 		date=request.args.get('date')
 		temp_d={"published_date":date}
 		temp.append(temp_d)
-
-	
-	#results = db['jobposts_rawdata_job'].find({"$and":temp}).limit(10).skip(off)
 	results = db1['jobposts_rawdata'].find({"$and":temp}).limit(10).skip(off)
-	#count=db['jobposts_rawdata_job'].find({"keyword_fetched":job_name}).count()
 	count=db1['jobposts_rawdata'].find({"keyword":job_name}).count()
 	print count
 	new_results = []
@@ -374,7 +349,6 @@ def getJobs(job_name):
 	out=[]
 	
 	for result in results:
-		#check={}
 		check=collections.OrderedDict()
 		check["JOB-TITLE : "] = result["job_title"]
 		check ["COMPANY : "] = result["company_name"]

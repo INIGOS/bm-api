@@ -109,7 +109,7 @@ def getskills(loids):
 				"search":{
 				"timed_out":"false",
 				"response":{
-								"MESSAGE":"NO RESULTS FOR THIS LEARNING OBJECT"
+								"MESSAGE":"NO RESULTS FOR THIS LEARNING OBJECT - " + loids
 								
 				}
 				}
@@ -255,10 +255,10 @@ def getKeywords(keyss):
 		result_format['search']['response']['data'] = out
 		return result_format
 
-def getvideos(id):
+def getvideos(ids):
 	out=[]
 	#results=db['extracted_videos'].find({"learning_object":learning_object})
-	results=db1['extracted_videos_new'].find({"learning_object_id":id})
+	results=db1['extracted_videos_new'].find({"learning_object_id":ids})
 	print results
 	for result in results:
 		print "poda"
@@ -284,7 +284,7 @@ def getvideos(id):
 				"search":{
 				"timed_out":"false",
 				"response":{
-								"MESSAGE":"NO VIDEOS FOR THIS LEARNING OBJECT "
+								"MESSAGE":"NO VIDEOS FOR THIS LEARNING OBJECT - " + ids
 								
 				}
 				}

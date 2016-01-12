@@ -222,6 +222,13 @@ def getKeywords(keyss):
 		lo_count=db1['extracted_videos_new'].find({"job_id":int(keyss)}).count()
 		check["LO-COUNT"]=lo_count
 		check1['JOB']=result["job"]
+		list_of_skills=result["skills"]
+		skills_with_count=[]
+		for skill in list_of_skills:
+			lo_count=db1['extracted_videos_new'].find({"skill_id":skill["id"]}).count()
+			skill['LO-COUNT']=lo_count
+			skills_with_count.append(skill)
+		check['SKILL SET']=skills_with_count	
 		out1.append(check1)
 		out.append(check)
 		comp="hi"

@@ -109,7 +109,7 @@ def getskills(loids):
 				"search":{
 				"timed_out":"false",
 				"response":{
-								"found":"0"
+								"MESSAGE":"NO RESULTS FOR THIS LEARNING OBJECT"
 								
 				}
 				}
@@ -284,7 +284,7 @@ def getvideos(id):
 				"search":{
 				"timed_out":"false",
 				"response":{
-								"found":"0"
+								"MESSAGE":"NO VIDEOS FOR THIS LEARNING OBJECT "
 								
 				}
 				}
